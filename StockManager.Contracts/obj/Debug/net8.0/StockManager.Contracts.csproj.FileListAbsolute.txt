@@ -1,0 +1,11 @@
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/bin/Debug/net8.0/StockManager.Contracts.deps.json
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/bin/Debug/net8.0/StockManager.Contracts.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/bin/Debug/net8.0/StockManager.Contracts.pdb
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/obj/Debug/net8.0/StockManager.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/obj/Debug/net8.0/StockManager.Contracts.AssemblyInfoInputs.cache
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/obj/Debug/net8.0/StockManager.Contracts.AssemblyInfo.cs
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/obj/Debug/net8.0/StockManager.Contracts.csproj.CoreCompileInputs.cache
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/obj/Debug/net8.0/StockManager.Contracts.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/obj/Debug/net8.0/refint/StockManager.Contracts.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/obj/Debug/net8.0/StockManager.Contracts.pdb
+/Users/jorgecamarena/Projects/StockManager/StockManager.Contracts/obj/Debug/net8.0/ref/StockManager.Contracts.dll
