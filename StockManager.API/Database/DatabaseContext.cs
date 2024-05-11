@@ -5,14 +5,15 @@ namespace StockManager.API.Database
 {
     public class DatabaseContext : DbContext
     {
-        protected readonly IConfiguration Configuration;
-        public DatabaseContext(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        // protected readonly IConfiguration Configuration;
+        // public DatabaseContext(IConfiguration configuration)
+        // {
+        //     Configuration = configuration;
+        // }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(Configuration.GetConnectionString("StockAppAPIDatabase"));
+            //optionsBuilder.UseNpgsql(Configuration.GetConnectionString("StockAppAPIDatabase"));
+            optionsBuilder.UseNpgsql("Host=localhost; Database=stock_app_db; Username=root; Password=mysecretpassword");
         }
 
         public DbSet<Account> Accounts { get; set; }

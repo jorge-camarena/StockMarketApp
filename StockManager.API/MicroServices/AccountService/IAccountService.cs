@@ -1,12 +1,13 @@
 using StockManager.API.Models;
+using StockManager.Contracts.Account;
 
 namespace StockManager.API.MicroServices.AccountService
 {
     public interface IAccountService
     {
-        void CreateAccount(Account account);
+        Account CreateAccount(CreateAccountRequest req);
         Account GetAccount(Guid id);
-        Account UpdateAccount(Guid id, Account account);
+        Account UpdateAccount(UpdateAccountRequest req);
         Account DeleteAccount(Guid id);
 
         

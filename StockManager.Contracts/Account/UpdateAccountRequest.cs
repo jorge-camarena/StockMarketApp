@@ -2,10 +2,10 @@ namespace StockManager.Contracts.Account
 {
     public record UpdateAccountRequest
     (
-        Guid id,
+        Guid Id,
         string? Name,
         string? Email,
         string? Password,
-        DateTime LastUpdatedDateTime
+        string? AccountType
     );
 }
