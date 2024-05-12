@@ -4,11 +4,14 @@ using StockManager.API.Models;
 using StockManager.API.MicroServices.AccountService;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Principal;
+using StockManager.API.ServiceErrors;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using StockManager.API.Database;
 
 // TODO:
 //      1.Figure out if I should send password in AccountResponse
 //      2.
-    
+
 
 
 namespace StockManager.API.Controllers
@@ -21,27 +24,43 @@ namespace StockManager.API.Controllers
 
         [HttpPost("create-account")]
         public IActionResult CreateAccount(CreateAccountRequest req) {
-            try 
-            {
-                Account account = _accountService.CreateAccount(req);
-                AccountResponse response = new AccountResponse(
-                    Id: account.Id,
-                    Name: account.Name,
-                    Email: account.Email,
-                    AccountType: account.AccountType,
-                    CreatedAtDateTime: account.CreatedAtDateTime,
-                    LastUpdatedDateTime: account.LastUpdatedDateTime
+            var result = _accountService.CreateAccount(req);
+            if (result.Error is not null) {
+                Error error = result.Error;
+                ErrorResponse errorResponse = new ErrorResponse(
+                    ErrorCode: error.Code,
+                    Description: error.Description
                 );
-                return Ok(response);
-            } catch(Microsoft.EntityFrameworkCore.DbUpdateException) 
-            {
-                return BadRequest("Unable to save account");
+                if (error.Code == "Account.EmailNotUnique") {
+                    return Conflict(errorResponse);
+                } else {
+                    return BadRequest(errorResponse);
+                }
             }
+            Account? account = result.Value;
+            AccountResponse response = new AccountResponse(
+                Id: account.Id,
+                Name: account.Name,
+                Email: account.Email,
+                AccountType: account.AccountType,
+                CreatedAtDateTime: account.CreatedAtDateTime,
+                LastUpdatedDateTime: account.LastUpdatedDateTime
+            );
+            return Ok(response);
 
         }
         [HttpGet("get-account/{id:guid}")]
         public IActionResult GetAccount(Guid id) {
-            Account account = _accountService.GetAccount(id);
+            var result = _accountService.GetAccount(id);
+            if (result.Error is not null) {
+                Error? error = result.Error;
+                ErrorResponse errorResponse = new ErrorResponse(
+                    ErrorCode: error.Code,
+                    Description: error.Description
+                );
+                return NotFound(errorResponse);
+            }
+            Account? account = result.Value;
                 AccountResponse response = new AccountResponse(
                 Id: account.Id,
                 Name: account.Name,
@@ -55,7 +74,21 @@ namespace StockManager.API.Controllers
 
         [HttpPut("update-account")]
         public IActionResult UpdateAccount(UpdateAccountRequest req) {
-            Account account = _accountService.UpdateAccount(req);
+            var result = _accountService.UpdateAccount(req);
+            if (result.Error is not null) {
+                Error error = result.Error;
+                ErrorResponse errorResponse = new ErrorResponse(
+                    ErrorCode: error.Code,
+                    Description: error.Description
+                );
+                if (error.Code == "Account.NotFound"){
+                    return NotFound(errorResponse);
+                } else {
+                    return BadRequest(errorResponse);
+
+                }  
+            }
+            Account? account = result.Value;
             AccountResponse response = new AccountResponse(
                 Id: account.Id,
                 Name: account.Name,
@@ -69,8 +102,20 @@ namespace StockManager.API.Controllers
 
         [HttpDelete("delete-account/{id:Guid}")]
         public IActionResult DeleteAccount(Guid id) {
-            Account account = _accountService.DeleteAccount(id);
-
+            var result = _accountService.DeleteAccount(id);
+            if (result.Error is not null) {
+                Error error = result.Error;
+                ErrorResponse errorResponse = new ErrorResponse(
+                    ErrorCode: error.Code,
+                    Description: error.Description
+                );
+                if (error.Code == "Account.NotFound") {
+                    return NotFound(errorResponse);
+                } else {
+                    return BadRequest(errorResponse);
+                }
+            }
+            Account? account = result.Value;
             AccountResponse response = new AccountResponse(
             Id: account.Id,
             Name: account.Name,

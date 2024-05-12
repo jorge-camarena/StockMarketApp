@@ -1,4 +1,5 @@
 namespace StockManager.Contracts.Account
+
 {
     public record AccountResponse
     (
