@@ -34,6 +34,7 @@ namespace StockManager.API.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     AccountId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PortfolioName = table.Column<string>(type: "text", nullable: false),
                     PortfolioType = table.Column<string>(type: "text", nullable: false),
                     CreatedAtDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     LastUpdatedAtDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)

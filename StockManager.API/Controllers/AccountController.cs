@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using StockManager.Contracts.Account;
+using StockManager.Contracts.Error;
 using StockManager.API.Models;
 using StockManager.API.MicroServices.AccountService;
-using Microsoft.AspNetCore.Identity;
-using System.Security.Principal;
 using StockManager.API.ServiceErrors;
-using Microsoft.AspNetCore.Authorization.Infrastructure;
-using StockManager.API.Database;
 
 // TODO:
 //      1.Figure out if I should send password in AccountResponse

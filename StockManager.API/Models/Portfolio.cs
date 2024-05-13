@@ -9,6 +9,7 @@ namespace StockManager.API.Models
     {
         public Guid Id { get; set; }
         public Guid AccountId { get; set; }
+        public string PortfolioName { get; set; } = string.Empty;
         public string PortfolioType { get; set; } = string.Empty;
         public DateTime CreatedAtDateTime { get; set; }
         public DateTime LastUpdatedAtDateTime { get; set;}

@@ -5,4 +5,7 @@ db-migrate-up:
 	
 server-start:
 	cd StockManager.API; dotnet run; cd ..
+clear:
+	docker container rm -f $$(docker container ls -aq) && \
+	docker image rm -f $$(docker image ls -aq)
 

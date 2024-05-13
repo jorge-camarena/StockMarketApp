@@ -1,4 +1,4 @@
-namespace StockManager.Contracts.Account
+namespace StockManager.Contracts.Error
 {
     public record ErrorResponse
     (
