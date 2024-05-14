@@ -5,12 +5,6 @@ using StockManager.API.Models;
 using StockManager.API.MicroServices.AccountService;
 using StockManager.API.ServiceErrors;
 
-// TODO:
-//      1.Figure out if I should send password in AccountResponse
-//      2.
-
-
-
 namespace StockManager.API.Controllers
 {
     [ApiController]

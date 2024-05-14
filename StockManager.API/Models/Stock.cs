@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace StockManager.API.Models
 {
+    //TODO: figure if add Pricepershare
     public class Stock
     {
         public Guid Id { get; set; }
