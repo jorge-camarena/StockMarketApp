@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManager.UnitTests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManager.API", "StockManager.API\StockManager.API.csproj", "{F5FC9DBA-02E1-4815-B097-5C9F49865E03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManager.TwelveDataDotNet", "StockManager.TwelveDataDotNet\StockManager.TwelveDataDotNet.csproj", "{1488CC03-FF9F-4341-8F6D-BEA95E7356BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{F5FC9DBA-02E1-4815-B097-5C9F49865E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5FC9DBA-02E1-4815-B097-5C9F49865E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5FC9DBA-02E1-4815-B097-5C9F49865E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1488CC03-FF9F-4341-8F6D-BEA95E7356BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1488CC03-FF9F-4341-8F6D-BEA95E7356BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1488CC03-FF9F-4341-8F6D-BEA95E7356BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1488CC03-FF9F-4341-8F6D-BEA95E7356BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

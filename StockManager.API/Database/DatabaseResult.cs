@@ -6,12 +6,19 @@ namespace StockManager.API.Database
     {
         public T? Value;
         public Error? Error;
-        public bool IsError { get; }
+        public bool _success;
 
-        public DatabaseResult(T? value, Error? error, bool isError) {
-            this.Value = value;
-            this.Error = error;
-            this.IsError = isError;
-        }      
+        public DatabaseResult(T? value, Error? error, bool success) {
+            Value = value;
+            Error = error;
+            _success = success;
+        }
+
+        public static DatabaseResult<T> Ok(T v) {
+            return new DatabaseResult<T>(v, default, true);
+        }
+        public static DatabaseResult<T> Err(Error e) {
+            return new DatabaseResult<T>(default(T), e, false);
+        }
     }
 }

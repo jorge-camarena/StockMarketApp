@@ -21,7 +21,7 @@ namespace StockManager.API.MicroServices.AccountService
             Account? accountQuery = _dbContext.Accounts.FirstOrDefault(x => x.Email == email);
             if (accountQuery is not null) {
                 Error error = AccountError.EmailNotUnique(email);
-                var result = new DatabaseResult<Account>(accountQuery, error, true);
+                var result = DatabaseResult<Account>.Err(error);
                 return result;
             }
             try 
@@ -38,17 +38,17 @@ namespace StockManager.API.MicroServices.AccountService
                 };
                 _dbContext.Add(account);
                 _dbContext.SaveChanges();
-                var result = new DatabaseResult<Account>(account, null, false);
+                var result = DatabaseResult<Account>.Ok(account);
                 return result;
             } catch (Microsoft.EntityFrameworkCore.DbUpdateException) 
             {
                 Error error = AccountError.EmptyFields();
-                var result = new DatabaseResult<Account>(null, error, true);
+                var result = DatabaseResult<Account>.Err(error);
                 return result;
             } finally
             {
                 Error error = AccountError.UnknownError();
-                var result = new DatabaseResult<Account>(null, error, true);
+                var result = DatabaseResult<Account>.Err(error);
             }       
         }
 
