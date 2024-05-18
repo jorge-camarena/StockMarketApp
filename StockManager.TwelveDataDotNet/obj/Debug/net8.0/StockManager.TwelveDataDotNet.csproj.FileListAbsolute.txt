@@ -1,0 +1,12 @@
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/bin/Debug/net8.0/StockManager.TwelveDataDotNet.deps.json
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/bin/Debug/net8.0/StockManager.TwelveDataDotNet.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/bin/Debug/net8.0/StockManager.TwelveDataDotNet.pdb
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/StockManager.TwelveDataDotNet.csproj.AssemblyReference.cache
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/StockManager.TwelveDataDotNet.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/StockManager.TwelveDataDotNet.AssemblyInfoInputs.cache
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/StockManager.TwelveDataDotNet.AssemblyInfo.cs
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/StockManager.TwelveDataDotNet.csproj.CoreCompileInputs.cache
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/StockManager.TwelveDataDotNet.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/refint/StockManager.TwelveDataDotNet.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/StockManager.TwelveDataDotNet.pdb
+/Users/jorgecamarena/Projects/StockManager/StockManager.TwelveDataDotNet/obj/Debug/net8.0/ref/StockManager.TwelveDataDotNet.dll

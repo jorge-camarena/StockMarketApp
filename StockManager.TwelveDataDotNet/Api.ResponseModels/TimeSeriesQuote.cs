@@ -5,101 +5,80 @@ namespace StockManager.TwelveDataDotNet.Api.ResponseModels
     public class TimeSeriesQuote
     {
         [JsonProperty("symbol")]
-        public string Symbol { get; set;}
+        public string Symbol { get; set;} = string.Empty;
 
         [JsonProperty("name")]
-        public string Name { get; set;}
+        public string Name { get; set;} = string.Empty;
 
         [JsonProperty("exchange")]
-        public string Exchange { get; set;}
+        public string Exchange { get; set;} = string.Empty;
 
         [JsonProperty("mic_code")]
-        public string MicCode { get; set;}
+        public string MicCode { get; set;} = string.Empty;
 
         [JsonProperty("currency")]
-        public string Currency { get; set;}
+        public string Currency { get; set;} = string.Empty;
 
         [JsonProperty("datetime")]
-        public string DateTime { get; set;}
+        public string DateTime { get; set;} = string.Empty;
 
         [JsonProperty("timestamp")]
         public long TimeStamp { get; set;}
 
         [JsonProperty("open")]
-        public string Open { get; set;}
+        public string Open { get; set;} = string.Empty;
 
         [JsonProperty("high")]
-        public string High { get; set;}
+        public string High { get; set;} = string.Empty;
 
         [JsonProperty("low")]
-        public string Low { get; set;}
+        public string Low { get; set;} = string.Empty;
 
         [JsonProperty("close")]
-        public string Close { get; set;}
+        public string Close { get; set;} = string.Empty;
 
         [JsonProperty("volume")]
-        public string Volume { get; set;}
+        public string Volume { get; set;} = string.Empty;
 
         [JsonProperty("previous_close")]
-        public string PreviousClose { get; set;}
+        public string PreviousClose { get; set;} = string.Empty;
 
         [JsonProperty("change")]
-        public string Change { get; set;}
+        public string Change { get; set;} = string.Empty;
 
-        [JsonProperty("percentage_change")]
-        public string PercentageChange { get; set;}
+        [JsonProperty("percent_change")]
+        public string PercentChange { get; set;} = string.Empty;
 
         [JsonProperty("average_volume")]
-        public string AverageVolume { get; set;}
-
-        [JsonProperty("rolling_1d_change")]
-        public string RollingOneDayChange { get; set;}
-
-        [JsonProperty("rolling_7d_change")]
-        public string RollingSevenDayChange { get; set;}
-
-        [JsonProperty("rolling_period_change")]
-        public string RollingPeriodDayChange { get; set;}
+        public string AverageVolume { get; set;} = string.Empty;
 
         [JsonProperty("is_market_open")]
         public bool IsMarketOpen { get; set;}
 
         [JsonProperty("fifty_two_week")]
-        public FiftyTwoWeek FiftyTwoWeek { get; set;}
-
-        [JsonProperty("extended_change")]
-        public string ExtendedChange { get; set;}
-
-        [JsonProperty("extended_percentage_change")]
-        public string ExtendedPercentageChange { get; set;}
-
-        [JsonProperty("extended_price")]
-        public string ExtendedPrice { get; set;}
-
-        [JsonProperty("extended_timestamp")]
-        public long ExtendedTimeStamp { get; set;} 
+        public FiftyTwoWeek FiftyTwoWeek { get; set;} = new FiftyTwoWeek();
     }
     public partial class FiftyTwoWeek
     {
         [JsonProperty("low")]
-        public string Low { get; set;}
+        public string Low { get; set;} = string.Empty;
         
         [JsonProperty("high")]
-        public string High { get; set;}
+        public string High { get; set;} = string.Empty;
 
         [JsonProperty("low_change")]
-        public string LowChange { get; set;}
+        public string LowChange { get; set;} = string.Empty;
 
         [JsonProperty("high_change")]
-        public string HighChange { get; set;}
+        public string HighChange { get; set;} = string.Empty;
 
-        [JsonProperty("low_change_percentage")]
-        public string LowChangePercentage { get; set;}
+        [JsonProperty("low_change_percent")]
+        public string LowChangePercent { get; set;} = string.Empty;
 
-        [JsonProperty("high_change_percentage")]
-        public string HighChangePercentage { get; set;}
+        [JsonProperty("high_change_percent")]
+        public string HighChangePercent { get; set;} = string.Empty;
 
         [JsonProperty("range")]
-        public string Range { get; set;}
+        public string Range { get; set;} = string.Empty;
     }
 }

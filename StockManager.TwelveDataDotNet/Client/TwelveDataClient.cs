@@ -23,48 +23,43 @@ namespace StockManager.TwelveDataDotNet.Client
                 string responseString = await response.Content.ReadAsStringAsync();
                 var jsonReponse = JsonConvert.DeserializeObject<TimeSeriesQuote>(responseString);
 
-                TwelveDataQuote quote = new TwelveDataQuote() {
-                    Symbol = jsonReponse.Symbol,
-                    Name = jsonReponse.Name,
-                    Exchange = jsonReponse.Exchange,
-                    MicCode = jsonReponse.MicCode,
-                    Currency = jsonReponse.Currency,
-                    DateTime = jsonReponse.DateTime,
-                    TimeStamp = jsonReponse.TimeStamp,
-                    Open = Convert.ToDouble(jsonReponse.Open),
-                    High = Convert.ToDouble(jsonReponse.High),
-                    Low = Convert.ToDouble(jsonReponse.Low),
-                    Close = Convert.ToDouble(jsonReponse.Close),
-                    Volume = Convert.ToInt32(jsonReponse.Volume),
-                    PreviousClose = Convert.ToDouble(jsonReponse.PreviousClose),
-                    Change = Convert.ToDouble(jsonReponse.Change),
-                    PercentageChange = Convert.ToDouble(jsonReponse.PercentageChange),
-                    AverageVolume = Convert.ToDouble(jsonReponse.AverageVolume),
-                    RollingOneDayChange = Convert.ToDouble(jsonReponse.RollingOneDayChange),
-                    RollingSevenDayChange = Convert.ToDouble(jsonReponse.RollingSevenDayChange),
-                    RollingPeriodDayChange = Convert.ToDouble(jsonReponse.RollingPeriodDayChange),
-                    IsMarketOpen = jsonReponse.IsMarketOpen,
-                    FiftyTwoWeekLow = Convert.ToDouble(jsonReponse.FiftyTwoWeek.Low),
-                    FiftyTwoWeekHigh = Convert.ToDouble(jsonReponse.FiftyTwoWeek.High),
-                    FiftyTwoWeekLowChange = Convert.ToDouble(jsonReponse.FiftyTwoWeek.LowChange),
-                    FiftyTwoWeekHighChange = Convert.ToDouble(jsonReponse.FiftyTwoWeek.HighChange),
-                    FiftyTwoWeekLowChangePercentage = Convert.ToDouble(jsonReponse.FiftyTwoWeek.LowChangePercentage),
-                    FiftyTwoWeekHighChangePercentage = Convert.ToDouble(jsonReponse.FiftyTwoWeek.HighChangePercentage),
-                    FiftyTwoWeekRange = jsonReponse.FiftyTwoWeek.Range,
-                    ExtendedChange = Convert.ToDouble(jsonReponse.ExtendedChange),
-                    ExtendedPercentageChange = Convert.ToDouble(jsonReponse.ExtendedPercentageChange),
-                    ExtendedPrice = Convert.ToDouble(jsonReponse.ExtendedPrice),
-                    ExtendedTimeStamp = jsonReponse.ExtendedTimeStamp
-                };
-                if (quote.Symbol != null) {
-                    quote.ResponseStatus = ResponseStatus.Ok;
-                    quote.ResponseMessage = "Success";
+                if (jsonReponse.Symbol != string.Empty) {
+                    TwelveDataQuote quote = new TwelveDataQuote() {
+                        Symbol = jsonReponse.Symbol,
+                        Name = jsonReponse.Name,
+                        Exchange = jsonReponse.Exchange,
+                        MicCode = jsonReponse.MicCode,
+                        Currency = jsonReponse.Currency,
+                        DateTime = jsonReponse.DateTime,
+                        TimeStamp = Convert.ToInt64(jsonReponse.TimeStamp),
+                        Open = Convert.ToDouble(jsonReponse.Open),
+                        High = Convert.ToDouble(jsonReponse.High),
+                        Low = Convert.ToDouble(jsonReponse.Low),
+                        Close = Convert.ToDouble(jsonReponse.Close),
+                        Volume = Convert.ToInt64(jsonReponse.Volume),
+                        PreviousClose = Convert.ToDouble(jsonReponse.PreviousClose),
+                        Change = Convert.ToDouble(jsonReponse.Change),
+                        PercentChange = Convert.ToDouble(jsonReponse.PercentChange),
+                        AverageVolume = Convert.ToInt64(jsonReponse.AverageVolume),
+                        IsMarketOpen = jsonReponse.IsMarketOpen,
+                        FiftyTwoWeekLow = Convert.ToDouble(jsonReponse.FiftyTwoWeek.Low),
+                        FiftyTwoWeekHigh = Convert.ToDouble(jsonReponse.FiftyTwoWeek.High),
+                        FiftyTwoWeekLowChange = Convert.ToDouble(jsonReponse.FiftyTwoWeek.LowChange),
+                        FiftyTwoWeekHighChange = Convert.ToDouble(jsonReponse.FiftyTwoWeek.HighChange),
+                        FiftyTwoWeekLowChangePercent = Convert.ToDouble(jsonReponse.FiftyTwoWeek.LowChangePercent),
+                        FiftyTwoWeekHighChangePercent = Convert.ToDouble(jsonReponse.FiftyTwoWeek.HighChangePercent),
+                        FiftyTwoWeekRange = jsonReponse.FiftyTwoWeek.Range,
+                        ResponseStatus = ResponseStatus.Ok,
+                        ResponseMessage = "Success"
+                    };
+                    return quote;
+                } else {
+                    TwelveDataQuote quote = new TwelveDataQuote() {
+                        ResponseStatus = ResponseStatus.TwelveDataAPIError,
+                        ResponseMessage = "Invalid symbol entered"
+                    };
                     return quote;
                 }
-                quote.ResponseStatus = ResponseStatus.TwelveDataAPIError;
-                quote.ResponseMessage = "Invalid symbol entered";
-                return quote;
-
             } catch (Exception e)
             {
                 TwelveDataQuote quote = new TwelveDataQuote() {
@@ -75,10 +70,10 @@ namespace StockManager.TwelveDataDotNet.Client
             }
         }
 
-        public async Task<TwelveDataTimeSeries> GetTimeSeries(string symbol, string interval = "1day") {
+        public async Task<TwelveDataTimeSeries> GetTimeSeriesAsync(string symbol, string interval = "1day") {
             try 
             {
-                string url = $"https://api.twelvedata.com/time_series?symbol={symbol}&interval={interval}&apikey=your_api_key";
+                string url = $"https://api.twelvedata.com/time_series?symbol={symbol}&interval={interval}&apikey={_apiKey}";
                 var response = await _httpClient.GetAsync(url);
                 var responseString = await response.Content.ReadAsStringAsync();
                 var jsonReponse = JsonConvert.DeserializeObject<TimeSeriesResponse>(responseString);
@@ -105,7 +100,7 @@ namespace StockManager.TwelveDataDotNet.Client
                     };
                     timeSeries.Values.Add(td_values);
                 }
-                if (timeSeries.Symbol != null) {
+                if (timeSeries.Currency != string.Empty) {
                     timeSeries.ResponseStatus = ResponseStatus.Ok;
                     timeSeries.ResponseMessage = "Success";
                     return timeSeries;
@@ -123,14 +118,36 @@ namespace StockManager.TwelveDataDotNet.Client
 
                 return timeSeries;
             }
+        }
 
+        public async Task<TwelveDataRealTimePrice> GetRealTimePriceAsync(string symbol) {
+            try
+            {
+                string url = $"https://api.twelvedata.com/price?symbol={symbol}&apikey={_apiKey}";
+                var response = await _httpClient.GetAsync(url);
+                var responseString = await response.Content.ReadAsStringAsync();
+                var jsonResponse = JsonConvert.DeserializeObject<RealTimePrice> (responseString);
 
-
-
-
-
-            throw new NotImplementedException();
-
+                TwelveDataRealTimePrice realTimePrice = new TwelveDataRealTimePrice();
+                if (jsonResponse.Price != string.Empty) {
+                    realTimePrice.Price = Convert.ToDouble (jsonResponse.Price);
+                    realTimePrice.ResponseStatus = ResponseStatus.Ok;
+                    realTimePrice.ResponseMessage = "Success";
+                    return realTimePrice;
+                } 
+                realTimePrice.ResponseStatus = ResponseStatus.TwelveDataAPIError;
+                realTimePrice.ResponseMessage = "Invalid symbol.";
+                return realTimePrice;
+            } catch (Exception e)
+            {
+                Console.WriteLine("Exception");
+                Console.WriteLine(e);
+                TwelveDataRealTimePrice realTimePrice = new TwelveDataRealTimePrice() {
+                    ResponseStatus = ResponseStatus.TwelveDataDotNetError,
+                    ResponseMessage = e.Message
+                };
+                return realTimePrice;
+            }
         }
     }
 }

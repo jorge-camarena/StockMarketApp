@@ -1,20 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using StockManager.API.Database;
 using StockManager.API.Models;
 using StockManager.API.ServiceErrors;
 using StockManager.Contracts.Stock;
+using StockManager.TwelveDataDotNet.Client;
 
 namespace StockManager.API.MicroServices.StockService
 {
     public class StockService : IStockService
     {
         private readonly DatabaseContext _dbContext;
+        private readonly TwelveDataClient _twelveDataClient;
 
         public StockService(DatabaseContext dbContext) {
             _dbContext = dbContext;
+            _twelveDataClient = new TwelveDataClient(new HttpClient(), "f6b555954b7d4b8a80fb2571e8a2f223");
+            
         }
 
         public DatabaseResult<Stock> AddStock(AddStockRequest req) {

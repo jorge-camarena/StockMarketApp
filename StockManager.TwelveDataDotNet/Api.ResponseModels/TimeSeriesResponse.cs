@@ -8,7 +8,7 @@ namespace StockManager.TwelveDataDotNet.Api.ResponseModels
         [JsonProperty("meta")]
         public SymbolMetaData Meta { get; set; } = new SymbolMetaData();
 
-        [JsonProperty("value")]
+        [JsonProperty("values")]
         public List<TimeSeriesValues> Value { get; set; } = new List<TimeSeriesValues>();
 
         [JsonProperty("status")]
@@ -16,7 +16,7 @@ namespace StockManager.TwelveDataDotNet.Api.ResponseModels
     }
     public partial class TimeSeriesValues 
     {
-        [JsonProperty("datime")]
+        [JsonProperty("datetime")]
         public string DateTime { get; set; } = string.Empty;
 
         [JsonProperty("open")]

@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StockManager.Contracts\StockManager.Contracts.csproj" />
+    <ProjectReference Include="..\StockManager.TwelveDataDotNet\StockManager.TwelveDataDotNet.csproj" />
   </ItemGroup>
 
 </Project>

@@ -105,3 +105,6 @@
 /Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/tr/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll
 /Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/StockManager.TwelveDataDotNet.dll
+/Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/StockManager.TwelveDataDotNet.pdb

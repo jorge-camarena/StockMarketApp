@@ -2,17 +2,17 @@ namespace StockManager.TwelveDataDotNet.Library.ResponseModels
 {
     public class TwelveDataQuote
     {
-        public string Symbol { get; set;}
+        public string Symbol { get; set;} = string.Empty;
 
-        public string Name { get; set;}
+        public string Name { get; set;}  = string.Empty;
 
-        public string Exchange { get; set;}
+        public string Exchange { get; set;} = string.Empty;
 
-        public string MicCode { get; set;}
+        public string MicCode { get; set;} = string.Empty;
 
-        public string Currency { get; set;}
+        public string Currency { get; set;} = string.Empty;
 
-        public string DateTime { get; set;}
+        public string DateTime { get; set;} = string.Empty;
 
         public long TimeStamp { get; set;}
 
@@ -30,15 +30,9 @@ namespace StockManager.TwelveDataDotNet.Library.ResponseModels
 
         public double Change { get; set;}
 
-        public double PercentageChange { get; set;}
+        public double PercentChange { get; set;}
 
-        public double AverageVolume { get; set;}
-
-        public double RollingOneDayChange { get; set;}
-
-        public double RollingSevenDayChange { get; set;}
-
-        public double RollingPeriodDayChange { get; set;}
+        public long AverageVolume { get; set;}
 
         public bool IsMarketOpen { get; set;}
 
@@ -50,19 +44,11 @@ namespace StockManager.TwelveDataDotNet.Library.ResponseModels
 
         public double FiftyTwoWeekHighChange { get; set;}
 
-        public double FiftyTwoWeekLowChangePercentage { get; set;}
+        public double FiftyTwoWeekLowChangePercent { get; set;}
 
-        public double FiftyTwoWeekHighChangePercentage { get; set;}
+        public double FiftyTwoWeekHighChangePercent { get; set;}
 
-        public string FiftyTwoWeekRange { get; set;}
-
-        public double ExtendedChange { get; set;}
-
-        public double ExtendedPercentageChange { get; set;}
-
-        public double ExtendedPrice { get; set;}
-
-        public long ExtendedTimeStamp { get; set;}
+        public string FiftyTwoWeekRange { get; set;} = string.Empty;
 
         public ResponseStatus ResponseStatus { get; set;}
 

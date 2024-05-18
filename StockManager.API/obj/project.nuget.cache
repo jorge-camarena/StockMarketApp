@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "+HCNFXHwMbmtDX4bCa3dL3AjDui7CADjLvylA7Y1R/DlOcRhcXMyxTjI0pqMnJfKwqhGQEF/4uXki9FB/Hoh4Q==",
+  "dgSpecHash": "+KsstEiKXHgb8VE3MrW2NCmIRWNxTXZpUgjXkrtbluokfdppHamYHpKA0eJepzP0k618EIVqDIrxdmauQxaTag==",
   "success": true,
   "projectFilePath": "/Users/jorgecamarena/Projects/StockManager/StockManager.API/StockManager.API.csproj",
   "expectedPackageFiles": [
@@ -30,6 +30,7 @@
     "/Users/jorgecamarena/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "/Users/jorgecamarena/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
     "/Users/jorgecamarena/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/Users/jorgecamarena/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
     "/Users/jorgecamarena/.nuget/packages/npgsql/8.0.2/npgsql.8.0.2.nupkg.sha512",
     "/Users/jorgecamarena/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.2/npgsql.entityframeworkcore.postgresql.8.0.2.nupkg.sha512",
     "/Users/jorgecamarena/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
