@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using StockManager.API.Database;
 using StockManager.API.Models;
 using StockManager.API.ServiceErrors;
@@ -22,7 +19,7 @@ namespace StockManager.API.MicroServices.PortfolioService
                 .FirstOrDefault(x => x.Id == req.AccountId);
             if (account == null) {
                 Error error = PortfolioError.NoAssociatedAccout(req.AccountId);
-                var result = new DatabaseResult<Portfolio>(null, error, true);
+                var result = DatabaseResult<Portfolio>.Err(error);
                 return result;
             }
             try
@@ -38,17 +35,18 @@ namespace StockManager.API.MicroServices.PortfolioService
                 };
                 _dbContext.Add(portfolio);
                 _dbContext.SaveChanges();
-                var result = new DatabaseResult<Portfolio>(portfolio, null, false);
+                var result = DatabaseResult<Portfolio>.Ok(portfolio);
                 return result;
             } catch(Microsoft.EntityFrameworkCore.DbUpdateException)
             {
                 Error error = PortfolioError.EmptyFields();
-                var result = new DatabaseResult<Portfolio>(null, error, true);
+                var result = DatabaseResult<Portfolio>.Err(error);
                 return result;
-            } finally
+            } catch (Exception)
             {
                 Error error = PortfolioError.UnknownError();
-                var  result = new DatabaseResult<Portfolio>(null, error, true);
+                var  result = DatabaseResult<Portfolio>.Err(error);
+                return result;
             }
         }
 
@@ -57,10 +55,10 @@ namespace StockManager.API.MicroServices.PortfolioService
                 .FirstOrDefault(p => p.Id == id);
             if (portfolio == null) {
                 Error error = PortfolioError.NotFound(id);
-                var result = new DatabaseResult<Portfolio>(null, error, true);
+                var result = DatabaseResult<Portfolio>.Err(error);
                 return result;
             } else {
-                var result = new DatabaseResult<Portfolio>(portfolio, null, false);
+                var result = DatabaseResult<Portfolio>.Ok(portfolio);
                 return result;
             }
         }
@@ -70,7 +68,7 @@ namespace StockManager.API.MicroServices.PortfolioService
                 .FirstOrDefault(p => p.Id == req.Id);
             if (portfolio == null) {
                 Error error = PortfolioError.NotFound(req.Id);
-                var result = new DatabaseResult<Portfolio>(null ,error, true);
+                var result = DatabaseResult<Portfolio>.Err(error);
                 return result;
             }
             try 
@@ -78,12 +76,12 @@ namespace StockManager.API.MicroServices.PortfolioService
                 portfolio.PortfolioName = req.PortfolioName;
                 portfolio.PortfolioType = req.PortfolioType;
                 _dbContext.SaveChanges();
-                var result = new DatabaseResult<Portfolio>(portfolio, null, false);
+                var result = DatabaseResult<Portfolio>.Ok(portfolio);
                 return result;
             } catch (Exception)
             {
                 Error error = PortfolioError.UnknownError();
-                var result = new DatabaseResult<Portfolio>(null, error, true);
+                var result = DatabaseResult<Portfolio>.Err(error);
                 return result;
             }
         }
@@ -93,19 +91,36 @@ namespace StockManager.API.MicroServices.PortfolioService
                 .FirstOrDefault(p => p.Id == id);
             if (portfolio == null) {
                 Error error = PortfolioError.NotFound(id);
-                var result = new DatabaseResult<Portfolio>(null, error, true);
+                var result = DatabaseResult<Portfolio>.Err(error);
                 return result;
             }
             try 
             {
-                _dbContext.Remove(portfolio);
-                _dbContext.SaveChanges();
-                var result = new DatabaseResult<Portfolio>(portfolio, null, false);
+                using var transaction = _dbContext.Database.BeginTransaction();
+                string savePoint = "Delete stocks associated with portfolio";
+                try 
+                {
+                    _dbContext.Stock.Where(x => x.PortfolioId == id).ExecuteDelete();
+                    _dbContext.SaveChanges();
+
+                    transaction.CreateSavepoint(savePoint);
+
+                    _dbContext.Remove(portfolio);
+                    _dbContext.SaveChanges();
+
+                    transaction.Commit();
+
+                } catch (Exception)
+                {
+                    transaction.RollbackToSavepoint(savePoint);
+                }
+                var result = DatabaseResult<Portfolio>.Ok(portfolio);
                 return result;
+
             } catch (Exception)
             {
                 Error error = PortfolioError.UnknownError();
-                var result = new DatabaseResult<Portfolio>(null, error, true);
+                var result = DatabaseResult<Portfolio>.Err(error);
                 return result;
             }
         }

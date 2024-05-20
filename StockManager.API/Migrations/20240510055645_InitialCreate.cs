@@ -49,6 +49,7 @@ namespace StockManager.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AccountId = table.Column<Guid>(type: "uuid", nullable: false),
                     PortfolioId = table.Column<Guid>(type: "uuid", nullable: false),
                     Symbol = table.Column<string>(type: "text", nullable: false),
                     AmountInvested = table.Column<float>(type: "real", nullable: false),
@@ -65,11 +66,11 @@ namespace StockManager.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    AccountId = table.Column<Guid>(type: "uuid", nullable: false),
                     PortfolioId = table.Column<Guid>(type: "uuid", nullable: false),
                     StockSymbol = table.Column<string>(type: "text", nullable: false),
                     AmountInvested = table.Column<float>(type: "real", nullable: false),
                     SharesBought = table.Column<float>(type: "real", nullable: false),
-                    ShareValueAtTransaction = table.Column<float>(type: "real", nullable: false),
                     TimeOfTransactionDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>

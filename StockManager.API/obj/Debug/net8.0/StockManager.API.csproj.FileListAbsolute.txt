@@ -108,3 +108,4 @@
 /Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/Newtonsoft.Json.dll
 /Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/StockManager.TwelveDataDotNet.dll
 /Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/StockManager.TwelveDataDotNet.pdb
+/Users/jorgecamarena/Projects/StockManager/StockManager.API/bin/Debug/net8.0/BCrypt.Net-Next.dll

@@ -9,6 +9,7 @@ namespace StockManager.API.Models
     public class Stock
     {
         public Guid Id { get; set; }
+        public Guid AccountId { get; set; }
         public Guid PortfolioId { get; set; }
         public string Symbol { get; set; } = string.Empty;
         public float AmountInvested { get; set; }

@@ -18,7 +18,7 @@ namespace StockManager.API.Database
             return new DatabaseResult<T>(v, default, true);
         }
         public static DatabaseResult<T> Err(Error e) {
-            return new DatabaseResult<T>(default(T), e, false);
+            return new DatabaseResult<T>(default, e, false);
         }
     }
 }

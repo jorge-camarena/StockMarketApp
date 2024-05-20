@@ -1,5 +1,6 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
+using StockManager.API.Mapper;
 using StockManager.API.MicroServices.PortfolioService;
 using StockManager.API.Models;
 using StockManager.API.ServiceErrors;
@@ -17,95 +18,73 @@ namespace StockManager.API.Controllers
         [HttpPost("create-portfolio")]
         public IActionResult CreatePortfolio(CreatePortfolioRequest req) {
             var result = _portfolioService.CreatePortfolio(req);
-            if (result.Error is not null) {
+            if (result._success) {
+                Portfolio? portfolio = result.Value;
+                PortfolioResponse response = PortfolioMapper.ToResponse(portfolio);
+                return Ok (response);
+            } else {
                 Error error = result.Error;
-                ErrorResponse errorResponse = new ErrorResponse(
-                    ErrorCode: error.Code,
-                    Description: error.Description
-                );
+                ErrorResponse errorResponse = ErrorMapper.ToResponse(error);
                 if (error.Code == "Portfolio.NoAssociatedAccountFound") {
                     return NotFound(errorResponse);
                 } else {
                     return BadRequest(errorResponse);
                 }
             }
-            Portfolio? portfolio = result.Value;
-            PortfolioResponse response = new PortfolioResponse(
-                Id: portfolio.Id,
-                PortfolioName: portfolio.PortfolioName,
-                PortfolioType: portfolio.PortfolioType
-            );
-            return Ok (response);
         }
 
-        [HttpGet("get-portfolio")]
+        [HttpGet("get-portfolio/{id:Guid}")]
         public IActionResult GetPortfolio(Guid id) {
             var result = _portfolioService.GetPortfolio(id);
-            if (result.Error is not null) {
+            if (result._success) {
+                Portfolio? portfolio = result.Value;
+                PortfolioResponse response = PortfolioMapper.ToResponse(portfolio);
+                return Ok(response);
+            } else {
                 Error error = result.Error;
-                ErrorResponse errorResponse = new ErrorResponse(
-                    ErrorCode: error.Code,
-                    Description: error.Description
-                );
+                ErrorResponse errorResponse = ErrorMapper.ToResponse(error);
                 if (error.Code == "Portfolio.NotFound") {
                     return NotFound(errorResponse);
                 } else {
                     return BadRequest(errorResponse);
                 }
             }
-            Portfolio? portfolio = result.Value;
-            PortfolioResponse response = new PortfolioResponse(
-                Id: portfolio.Id,
-                PortfolioName: portfolio.PortfolioName,
-                PortfolioType: portfolio.PortfolioType
-            );
-            return Ok(response);
         }
+
         [HttpPut("update-portfolio")]
         public IActionResult UpdatePortfolio(UpdatePortfolioRequest req) {
             var result = _portfolioService.UpdatePortfolio(req);
-            if (result.Error is not null) {
+            if (result._success) {
+                Portfolio? portfolio = result.Value;
+                PortfolioResponse response = PortfolioMapper.ToResponse(portfolio);
+                return Ok(response);
+            } else {
                 Error error = result.Error;
-                ErrorResponse errorResponse = new ErrorResponse(
-                    ErrorCode: error.Code,
-                    Description: error.Description
-                );
+                ErrorResponse errorResponse = ErrorMapper.ToResponse(error);
                 if (error.Code == "Portfolio.NotFound") {
                     return NotFound(errorResponse);
                 } else {
                     return BadRequest(errorResponse);
                 }
             }
-            Portfolio? portfolio = result.Value;
-            PortfolioResponse response = new PortfolioResponse(
-                Id: portfolio.Id,
-                PortfolioName: portfolio.PortfolioName,
-                PortfolioType: portfolio.PortfolioType
-            );
-            return Ok(response);
         }
-        [HttpDelete("delete-portfolio")]
+        
+        [HttpDelete("delete-portfolio/{id:Guid}")]
         public IActionResult DeletePortfolio(Guid id) {
             var result = _portfolioService.DeletePortfolio(id);
-            if (result.Error is not null) {
+            if (result._success) {
+                Portfolio? portfolio = result.Value;
+                PortfolioResponse response = PortfolioMapper.ToResponse(portfolio);
+                return Ok(response);
+            } else {
                 Error error = result.Error;
-                ErrorResponse errorResponse = new ErrorResponse(
-                    ErrorCode: error.Code,
-                    Description: error.Description
-                );
+                ErrorResponse errorResponse = ErrorMapper.ToResponse(error);
                 if (error.Code == "Portfolio.NotFound") {
                     return NotFound(errorResponse);
                 } else {
                     return BadRequest(errorResponse);
                 }
             }
-            Portfolio? portfolio = result.Value;
-            PortfolioResponse response = new PortfolioResponse(
-                Id: portfolio.Id,
-                PortfolioName: portfolio.PortfolioName,
-                PortfolioType: portfolio.PortfolioType
-            );
-            return Ok(response);
         }
     }
 }

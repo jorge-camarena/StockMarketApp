@@ -1,9 +1,9 @@
-using System.Reflection.Metadata.Ecma335;
-using Microsoft.EntityFrameworkCore;
 using StockManager.API.Database;
 using StockManager.API.Models;
 using StockManager.API.ServiceErrors;
 using StockManager.Contracts.Account;
+using BCrypt.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace StockManager.API.MicroServices.AccountService
 {
@@ -16,7 +16,6 @@ namespace StockManager.API.MicroServices.AccountService
         }
 
         public DatabaseResult<Account> CreateAccount(CreateAccountRequest req) {
-            //TODO: Hash Password
             string? email = req.Email;
             Account? accountQuery = _dbContext.Accounts.FirstOrDefault(x => x.Email == email);
             if (accountQuery is not null) {
@@ -27,11 +26,12 @@ namespace StockManager.API.MicroServices.AccountService
             try 
             {
                 Guid accountId = Guid.NewGuid();
+                var passwordHash = BCrypt.Net.BCrypt.HashPassword(req.Password);
                 Account account = new Account{
                     Id = accountId,
                     Name = req.Name,
                     Email =  req.Email,
-                    Password = req.Password,
+                    Password = passwordHash,
                     AccountType = req.AccountType,
                     CreatedAtDateTime = DateTime.UtcNow,
                     LastUpdatedDateTime = DateTime.UtcNow,
@@ -45,10 +45,11 @@ namespace StockManager.API.MicroServices.AccountService
                 Error error = AccountError.EmptyFields();
                 var result = DatabaseResult<Account>.Err(error);
                 return result;
-            } finally
+            } catch (Exception)
             {
                 Error error = AccountError.UnknownError();
                 var result = DatabaseResult<Account>.Err(error);
+                return result;
             }       
         }
 
@@ -57,10 +58,10 @@ namespace StockManager.API.MicroServices.AccountService
                 .FirstOrDefault(a => a.Id == id);
             if (account == null) {
                 Error error = AccountError.NotFound(id);
-                var result = new DatabaseResult<Account>(null, error, true);
+                var result = DatabaseResult<Account>.Err(error);
                 return result;
             } else {
-                var result = new DatabaseResult<Account>(account, null, false);
+                var result = DatabaseResult<Account>.Ok(account);
                 return result;
             }
         }
@@ -70,7 +71,7 @@ namespace StockManager.API.MicroServices.AccountService
                 .FirstOrDefault(a => a.Id == req.Id);
             if (accountToUpdate == null) {
                 Error error = AccountError.NotFound(req.Id);
-                var result = new DatabaseResult<Account>(null, error, true);
+                var result = DatabaseResult<Account>.Err(error);
                 return result;
             }
             try 
@@ -80,15 +81,14 @@ namespace StockManager.API.MicroServices.AccountService
                 accountToUpdate.Password = req.Password;
                 accountToUpdate.AccountType = req.AccountType;
                 _dbContext.SaveChanges();
-                var result = new DatabaseResult<Account>(accountToUpdate, null, false);
+                var result = DatabaseResult<Account>.Ok(accountToUpdate);
                 return result;
             } catch (Exception)
             {
                 Error error = AccountError.UnknownError();
-                var result = new DatabaseResult<Account>(null, error, true);
+                var result = DatabaseResult<Account>.Err(error);
                 return result;
             }
-
         }
 
         public DatabaseResult<Account> DeleteAccount(Guid id) {
@@ -96,19 +96,40 @@ namespace StockManager.API.MicroServices.AccountService
                 .FirstOrDefault(a => a.Id == id);
             if (account == null) {
                 Error error = AccountError.NotFound(id);
-                var result = new DatabaseResult<Account>(null, error, true);
+                var result = DatabaseResult<Account>.Err(error);
                 return result;
             }
             try 
             {
-                _dbContext.Remove(account);
-                _dbContext.SaveChanges();
-                var result = new DatabaseResult<Account>(account, null, false);
+                
+                using var transaction = _dbContext.Database.BeginTransaction();
+                string savePoint1 = "Delete stocks associated with account";
+                string savePoint2 = "Delete portfolio associated with account";
+                try 
+                {
+                    _dbContext.Stock.Where(x => x.AccountId == id).ExecuteDelete();
+                    _dbContext.SaveChanges();
+
+                    transaction.CreateSavepoint(savePoint1);
+
+                    _dbContext.Portfolios.Where(x => x.AccountId == id).ExecuteDelete();
+                    _dbContext.SaveChanges();
+
+                    transaction.CreateSavepoint(savePoint2);
+                    _dbContext.Remove(account);
+                    _dbContext.SaveChanges();
+                    transaction.Commit();
+                } catch (Exception)
+                {
+                    transaction.RollbackToSavepoint(savePoint1);
+                    transaction.RollbackToSavepoint(savePoint2);
+                }
+                var result = DatabaseResult<Account>.Ok(account);
                 return result;
             } catch (Exception)
             {
                 Error error = AccountError.UnknownError();
-                var result = new DatabaseResult<Account>(null, error, true);
+                var result = DatabaseResult<Account>.Err(error);
                 return result;
             }
         }        

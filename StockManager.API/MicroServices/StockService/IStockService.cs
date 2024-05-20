@@ -10,7 +10,7 @@ namespace StockManager.API.MicroServices.StockService
 {
     public interface IStockService
     {
-        DatabaseResult<Stock> AddStock(AddStockRequest req);
+        Task<DatabaseResult<Stock>> AddStock(AddStockRequest req);
         DatabaseResult<Stock> GetStock(Guid id);
         DatabaseResult<Stock> DeleteStock(Guid id);
     }

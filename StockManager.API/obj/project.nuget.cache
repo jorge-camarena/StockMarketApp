@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "+KsstEiKXHgb8VE3MrW2NCmIRWNxTXZpUgjXkrtbluokfdppHamYHpKA0eJepzP0k618EIVqDIrxdmauQxaTag==",
+  "dgSpecHash": "S0HVOggEo/3bpaiuxpXc7lzyucgpC5Iy+mGaiWZrg3LahsY0IbAEcBb5hL4NvCH1hP4m5GalxX+uUTRQboEAiA==",
   "success": true,
   "projectFilePath": "/Users/jorgecamarena/Projects/StockManager/StockManager.API/StockManager.API.csproj",
   "expectedPackageFiles": [
+    "/Users/jorgecamarena/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/Users/jorgecamarena/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/jorgecamarena/.nuget/packages/microsoft.aspnetcore.openapi/8.0.0/microsoft.aspnetcore.openapi.8.0.0.nupkg.sha512",
     "/Users/jorgecamarena/.nuget/packages/microsoft.bcl.asyncinterfaces/6.0.0/microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

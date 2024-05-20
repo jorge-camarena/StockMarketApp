@@ -20,5 +20,8 @@ namespace StockManager.API.ServiceErrors
         public static Error UnknownError() {
             return Error.Failure("Stock.UnknownError", "Unknown Error");
         }
+        public static Error InvalidSymbol(string symbol) {
+            return Error.NotFound("Stock.InvalidSymbol", $"The symbol {symbol} does not exist.");
+        }
     }
 }

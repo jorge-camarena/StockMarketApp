@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StockManager.TwelveDataDotNet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2311ad64bd316314d0270be9a64bbd5fc3aa902")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ad3809f3a1760df3c6a4f9c02213a9b64ec15d0")]
 [assembly: System.Reflection.AssemblyProductAttribute("StockManager.TwelveDataDotNet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StockManager.TwelveDataDotNet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

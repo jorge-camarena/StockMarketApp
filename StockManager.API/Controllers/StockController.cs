@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StockManager.API.Mapper;
 using StockManager.API.MicroServices.StockService;
 using StockManager.API.Models;
 using StockManager.API.ServiceErrors;
@@ -14,78 +15,58 @@ namespace StockManager.API.Controllers
 
         private readonly IStockService _stockService = new StockService(new());
 
-
         [HttpPost("add-stock")]
-        public IActionResult AddStock(AddStockRequest req) {
-            var result = _stockService.AddStock(req);
-            if (result.Error is not null) {
+        public async Task<IActionResult> AddStock(AddStockRequest req) {
+            var result = await _stockService.AddStock(req);
+            if (result._success) {
+                Stock? stock = result.Value;
+                StockResponse response = StockMapper.ToResponse(stock);
+                return Ok(response);
+            } else {
                 Error error = result.Error;
-                ErrorResponse errorResponse = new ErrorResponse(
-                    ErrorCode: error.Code,
-                    Description: error.Description
-                );
-                if (error.Code == "Stock.NoAssociatedPortfolioFound") {
+                ErrorResponse errorResponse = ErrorMapper.ToResponse(error);
+                if (error.Code == "Stock.NoAssociatedPortfolioFound" || error.Code == "Stock.InvalidSymbol") {
                     return NotFound(errorResponse);
                 } else {
                     return BadRequest(errorResponse);
                 }
-
             }
-            Stock? stock = result.Value;
-            StockResponse response = new StockResponse(
-                Id: stock.Id,
-                StockSymbol: stock.Symbol,
-                AmountInvested: stock.AmountInvested
-            );
-            return Ok(response);
         }
+
         [HttpGet("get-stock")]
         public IActionResult GetStock(Guid id) {
             var result = _stockService.GetStock(id);
-            if (result.Error is not null) {
+            if (result._success) {
+                Stock? stock = result.Value;
+                StockResponse response = StockMapper.ToResponse(stock);
+                return Ok(response);
+            } else {
                 Error error = result.Error;
-                ErrorResponse errorResponse = new ErrorResponse(
-                    ErrorCode: error.Code,
-                    Description: error.Description
-                );
+                ErrorResponse errorResponse = ErrorMapper.ToResponse(error);
                 if (error.Code == "Stock.NotFound") {
                     return NotFound(errorResponse);
                 } else {
                     return BadRequest(errorResponse);
                 }
-
             }
-            Stock? stock = result.Value;
-            StockResponse response = new StockResponse(
-                Id: stock.Id,
-                StockSymbol: stock.Symbol,
-                AmountInvested: stock.AmountInvested
-            );
-            return Ok(response);
         }
+
         [HttpDelete("delete-stock")]
         public IActionResult DeleteStock(Guid id) {
             var result = _stockService.DeleteStock(id);
-            if (result.Error is not null) {
+            if (result._success) {
+                Stock? stock = result.Value;
+                StockResponse response = StockMapper.ToResponse(stock);
+                return Ok(response);
+            } else {
                 Error error = result.Error;
-                ErrorResponse errorResponse = new ErrorResponse(
-                    ErrorCode: error.Code,
-                    Description: error.Description
-                );
+                ErrorResponse errorResponse = ErrorMapper.ToResponse(error);
                 if (error.Code == "Stock.NotFound") {
                     return NotFound(errorResponse);
                 } else {
                     return BadRequest(errorResponse);
                 }
-
             }
-            Stock? stock = result.Value;
-            StockResponse response = new StockResponse(
-                Id: stock.Id,
-                StockSymbol: stock.Symbol,
-                AmountInvested: stock.AmountInvested
-            );
-            return Ok(response);
         } 
     }
 }

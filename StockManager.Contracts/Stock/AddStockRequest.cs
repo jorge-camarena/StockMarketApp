@@ -7,6 +7,7 @@ namespace StockManager.Contracts.Stock
 {
     public record AddStockRequest
     (
+        Guid AccountId,
         Guid PortfolioId,
         string Symbol,
         float AmountInvested

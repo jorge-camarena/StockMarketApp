@@ -8,3 +8,5 @@
     dotnet ef migrations add InitialCreate
 5. execute migrations
     dotnet ef database update
+dotnet add package BCrypt.Net-Next
+
