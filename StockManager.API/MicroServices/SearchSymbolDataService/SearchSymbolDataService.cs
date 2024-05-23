@@ -7,9 +7,12 @@ namespace StockManager.API.MicroServices.SearchSymbolDataService
     public class SearchSymbolDataService : ISearchSymbolDataService
     {
         private readonly  TwelveDataClient _twelveDataClient;
+        protected readonly IConfiguration _configuration;
 
-        public SearchSymbolDataService() {
-            _twelveDataClient = new TwelveDataClient(new HttpClient(), "f6b555954b7d4b8a80fb2571e8a2f223");
+        public SearchSymbolDataService(IConfiguration configuration) {
+            _configuration = configuration;
+            string? apiKey = configuration.GetValue<string>("TwelveDataAPIKey");
+            _twelveDataClient = new TwelveDataClient(new HttpClient(), apiKey);
         }
 
         public async Task<TwelveDataRealTimePrice> GetRealTimePriceAsync(string symbol) {

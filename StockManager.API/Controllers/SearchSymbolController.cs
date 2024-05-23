@@ -12,7 +12,11 @@ namespace StockManager.API.Controllers
     [Route("search")]
     public class SearchSymbolController : ControllerBase
     {
-        private readonly ISearchSymbolDataService _searchSymbolDataService = new SearchSymbolDataService();
+        private readonly ISearchSymbolDataService _searchSymbolDataService;
+
+        public SearchSymbolController(ISearchSymbolDataService searchSymbolDataService) {
+            _searchSymbolDataService = searchSymbolDataService;
+        }
 
         [HttpGet("price/{symbol}")]
         public async Task<IActionResult> GetRealTimePrice(string symbol) {

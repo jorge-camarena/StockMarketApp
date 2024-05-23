@@ -1,4 +1,3 @@
-using System.Transactions;
 using StockManager.API.Database;
 using StockManager.API.Models;
 using StockManager.API.ServiceErrors;
@@ -12,11 +11,13 @@ namespace StockManager.API.MicroServices.StockService
     {
         private readonly DatabaseContext _dbContext;
         private readonly TwelveDataClient _twelveDataClient;
+        protected readonly IConfiguration _configuration;
 
-        public StockService(DatabaseContext dbContext) {
+        public StockService(DatabaseContext dbContext, IConfiguration configuration) {
             _dbContext = dbContext;
-            _twelveDataClient = new TwelveDataClient(new HttpClient(), "f6b555954b7d4b8a80fb2571e8a2f223");
-            
+            _configuration = configuration;
+            string? apiKey = configuration.GetValue<string>("TwelveDataAPIKey");
+            _twelveDataClient = new TwelveDataClient(new HttpClient(), apiKey);
         }
 
         public async Task<DatabaseResult<Stock>> AddStock(AddStockRequest req) {

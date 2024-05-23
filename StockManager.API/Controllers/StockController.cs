@@ -13,7 +13,11 @@ namespace StockManager.API.Controllers
     public class StockController : ControllerBase
     {
 
-        private readonly IStockService _stockService = new StockService(new());
+        private readonly IStockService _stockService;
+
+        public StockController(IStockService stockService) {
+            _stockService = stockService;
+        }
 
         [HttpPost("add-stock")]
         public async Task<IActionResult> AddStock(AddStockRequest req) {

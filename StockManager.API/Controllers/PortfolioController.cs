@@ -13,7 +13,11 @@ namespace StockManager.API.Controllers
     [Route("portfolio")]
     public class PortfolioController : ControllerBase
     {
-        private readonly IPortfolioService _portfolioService = new PortfolioService( new());
+        private readonly IPortfolioService _portfolioService;
+
+        public PortfolioController(IPortfolioService portfolioService) {
+            _portfolioService = portfolioService;
+        }
 
         [HttpPost("create-portfolio")]
         public IActionResult CreatePortfolio(CreatePortfolioRequest req) {

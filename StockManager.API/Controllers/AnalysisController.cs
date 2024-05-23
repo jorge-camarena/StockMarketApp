@@ -14,7 +14,11 @@ namespace StockManager.API.Controllers
     public class AnalysisController : ControllerBase
     {
 
-        private readonly IAnalysisService _analysisService = new AnalysisService();
+        private readonly IAnalysisService _analysisService;
+
+        public AnalysisController(IAnalysisService analysisService) {
+            _analysisService = analysisService;
+        }
 
         [HttpGet("get-stock-analysis")]
         public async Task<IActionResult> GetStockAnalysis(GetStockAnalysisRequest req) {

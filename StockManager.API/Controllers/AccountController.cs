@@ -12,7 +12,11 @@ namespace StockManager.API.Controllers
     [Route("account")]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountService _accountService = new AccountService( new());
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService){
+            _accountService = accountService;
+        }
 
         [HttpPost("create-account")]
         public IActionResult CreateAccount(CreateAccountRequest req) {

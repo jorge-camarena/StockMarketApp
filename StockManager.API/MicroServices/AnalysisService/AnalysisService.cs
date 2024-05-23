@@ -3,19 +3,21 @@ using StockManager.API.MicroServices.AnalysisService.Result;
 using StockManager.API.Models;
 using StockManager.Contracts.Analysis;
 using StockManager.TwelveDataDotNet.Client;
-using StockManager.TwelveDataDotNet;
 using ResponseStatus = StockManager.API.MicroServices.AnalysisService.Result.ResponseStatus;
 
 namespace StockManager.API.MicroServices.AnalysisService
 {
     public class AnalysisService : IAnalysisService
     {
-        private readonly TwelveDataClient _twelveDataClient;
         private readonly DatabaseContext _dbContext;
+        private readonly TwelveDataClient _twelveDataClient;
+        protected readonly IConfiguration _configuration;
 
-        public AnalysisService() {
-            _twelveDataClient = new TwelveDataClient(new HttpClient(), "f6b555954b7d4b8a80fb2571e8a2f223");
-            _dbContext = new DatabaseContext();
+        public AnalysisService(DatabaseContext dbContext, IConfiguration configuration) {
+            _dbContext = dbContext;
+            _configuration = configuration;
+            string? apiKey = configuration.GetValue<string>("TwelveDataAPIKey");
+            _twelveDataClient = new TwelveDataClient(new HttpClient(), apiKey);
         }
 
         public async Task<StockAnalysisResult> GetStockAnalysisDataAsync(GetStockAnalysisRequest req) {
