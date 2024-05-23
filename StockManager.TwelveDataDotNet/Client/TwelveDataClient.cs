@@ -70,10 +70,10 @@ namespace StockManager.TwelveDataDotNet.Client
             }
         }
 
-        public async Task<TwelveDataTimeSeries> GetTimeSeriesAsync(string symbol, string interval = "1day") {
+        public async Task<TwelveDataTimeSeries> GetTimeSeriesAsync(string symbol, string interval = "1day", bool previousClose = true, string startDate = "", string endDate = "") {
             try 
             {
-                string url = $"https://api.twelvedata.com/time_series?symbol={symbol}&interval={interval}&apikey={_apiKey}";
+                string url = $"https://api.twelvedata.com/time_series?symbol={symbol}&interval={interval}&apikey={_apiKey}&previous_close={previousClose}&start_date={startDate}&end_date={endDate}";
                 var response = await _httpClient.GetAsync(url);
                 var responseString = await response.Content.ReadAsStringAsync();
                 var jsonReponse = JsonConvert.DeserializeObject<TimeSeriesResponse>(responseString);
@@ -96,7 +96,10 @@ namespace StockManager.TwelveDataDotNet.Client
                         High = Convert.ToDouble(ts_value.High),
                         Low = Convert.ToDouble(ts_value.Low),
                         Close = Convert.ToDouble(ts_value.Close),
-                        Volume = Convert.ToInt32(ts_value.Volume),
+                        Volume = Convert.ToInt64(ts_value.Volume),
+                    };
+                    if (previousClose) {
+                        td_values.PreviousClose = Convert.ToDouble(ts_value.PreviousClose);
                     };
                     timeSeries.Values.Add(td_values);
                 }

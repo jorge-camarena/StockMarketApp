@@ -33,6 +33,9 @@ namespace StockManager.TwelveDataDotNet.Api.ResponseModels
 
         [JsonProperty("volume")]
         public string Volume { get; set; } = string.Empty;
+
+        [JsonProperty("previous_close")]
+        public string PreviousClose { get; set; } = string.Empty;
     }
 
     public partial class SymbolMetaData 

@@ -33,7 +33,7 @@ namespace StockManager.API.Controllers
             }
         }
 
-        [HttpGet("get-stock")]
+        [HttpGet("get-stock/{id:Guid}")]
         public IActionResult GetStock(Guid id) {
             var result = _stockService.GetStock(id);
             if (result._success) {
@@ -51,7 +51,7 @@ namespace StockManager.API.Controllers
             }
         }
 
-        [HttpDelete("delete-stock")]
+        [HttpDelete("delete-stock/{id:Guid}")]
         public IActionResult DeleteStock(Guid id) {
             var result = _stockService.DeleteStock(id);
             if (result._success) {

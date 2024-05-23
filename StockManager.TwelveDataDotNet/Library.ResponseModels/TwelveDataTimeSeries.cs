@@ -41,5 +41,7 @@ namespace StockManager.TwelveDataDotNet.Library.ResponseModels
         public double Close { get; set; }
 
         public long Volume { get; set; }
+
+        public double PreviousClose { get; set; }
     }
 }
