@@ -4,7 +4,6 @@ using StockManager.API.MicroServices.PortfolioService;
 using StockManager.API.MicroServices.StockService;
 using StockManager.API.MicroServices.SearchSymbolDataService;
 using StockManager.API.MicroServices.AnalysisService;
-using StockManager.TwelveDataDotNet.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 

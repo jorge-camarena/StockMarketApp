@@ -5,7 +5,6 @@ using StockManager.Contracts.Analysis;
 using StockManager.Contracts.Error;
 using StockManager.API.MicroServices.AnalysisService.Result;
 using StockManager.API.Mapper;
-//using StockManager.TwelveDataDotNet.Library.ResponseModels;
 
 namespace StockManager.API.Controllers
 {
@@ -24,7 +23,7 @@ namespace StockManager.API.Controllers
         public async Task<IActionResult> GetStockAnalysis(GetStockAnalysisRequest req) {
             var result = await _analysisService.GetStockAnalysisDataAsync(req);
             if (result.ResponseStatus == ResponseStatus.Ok) {
-                GetStockAnalysisResponse response = Mapper.AnalysisMapper.StockToResponse(result);
+                GetStockAnalysisResponse response = AnalysisMapper.StockToResponse(result);
                 return Ok(response);
             }
             else
@@ -45,7 +44,7 @@ namespace StockManager.API.Controllers
         public async Task<IActionResult> GetPortfolioAnalysis(GetPortfolioAnalysisRequest req) {
             var result = await _analysisService.GetPortfolioAnalysisDataAsync(req);
             if (result.ResponseStatus == ResponseStatus.Ok) {
-                GetPortfolioAnalysisResponse response = Mapper.AnalysisMapper.PortfolioToResponse(result);
+                GetPortfolioAnalysisResponse response = AnalysisMapper.PortfolioToResponse(result);
                 return Ok(response);
             } else {
                 if (result.ResponseStatus == ResponseStatus.TwelveDataAPIError) {
@@ -56,8 +55,6 @@ namespace StockManager.API.Controllers
                     Error error = AnalysisError.NotFound(result.ResponseMessage);
                     ErrorResponse errorResponse = ErrorMapper.ToResponse(error);
                     return BadRequest(errorResponse);
-                    
-
                 }
 
             }

@@ -19,7 +19,7 @@ namespace StockManager.API.MicroServices.AnalysisService
             string? apiKey = configuration.GetValue<string>("TwelveDataAPIKey");
             _twelveDataClient = new TwelveDataClient(new HttpClient(), apiKey);
         }
-
+ 
         public async Task<StockAnalysisResult> GetStockAnalysisDataAsync(GetStockAnalysisRequest req) {
             return await GetSingleStockAnalysisAsync(req.Symbol, req.Interval, req.StartDate, req.EndDate);
         }
