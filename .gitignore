@@ -1,4 +1,4 @@
 /setup.txt
 /Makefile
 /Dockerfile
-/*appsettings.json
+/StockManager.API/appsettings.json
