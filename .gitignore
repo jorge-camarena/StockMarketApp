@@ -1,4 +1,4 @@
-setup.txt
-Makefile
-Dockerfile
-*appsettings.json
+/setup.txt
+/Makefile
+/Dockerfile
+/*appsettings.json
